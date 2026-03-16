@@ -1,0 +1,21 @@
+<h2> Delivery List</h2>
+<table> 
+<tr>
+<th>Order</th>
+<th>Delivery Person</th>
+<th>Delivery Status</th>
+<th>Actions</th>
+</tr>
+{% for delivery in deliveries %}
+<tr>
+<td>{{ delivery.order }}</td>
+<td>{{ delivery.delivery_person }}</td>
+<td>{{ delivery.delivery_status }}</td>
+<td>
+<a href="{% url 'delivery_update' delivery.id %}">Edit</a>
+<a href="{% url 'delivery_delete' delivery.id %}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+

@@ -1,0 +1,27 @@
+<h2>Restaurants</h2>
+
+<a href="{% url 'restaurant_create' %}">Add Restaurant</a>
+
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Location</th>
+<th>Contact</th>
+<th>Action</th>
+</tr>
+
+{% for r in restaurants %}
+<tr>
+<td>{{ r.restaurant_name }}</td>
+<td>{{ r.location }}</td>
+<td>{{ r.contact_no }}</td>
+
+<td>
+<a href="{% url 'restaurant_update' r.id %}">Edit</a>
+<a href="{% url 'restaurant_delete' r.id %}">Delete</a>
+</td>
+
+</tr>
+{% endfor %}
+
+</table>

@@ -1,0 +1,56 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>DineTime - My Bookings</title>
+
+<link rel="stylesheet" href="{% static 'css/mybookings.css' %}">
+
+</head>
+
+<body>
+
+<div class="booking-container">
+
+<h1 class="title">🍽 My Table Bookings</h1>
+
+<div class="booking-grid">
+
+{% for booking in bookings %}
+
+<div class="booking-card">
+
+<h2>Table Reservation</h2>
+
+<p><strong>Date:</strong> {{ booking.date }}</p>
+
+<p><strong>Time:</strong> {{ booking.time }}</p>
+
+<p><strong>Guests:</strong> {{ booking.guests }}</p>
+
+<p class="status">{{ booking.status }}</p>
+
+<form method="POST" action="{% url 'cancel_booking' booking.id %}">
+{% csrf_token %}
+
+<a href="{% url 'cancel_booking' booking.id %}" class="cancel-btn">
+Cancel Booking
+</a>
+
+</div>
+
+{% empty %}
+
+<p class="no-booking">No bookings found</p>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

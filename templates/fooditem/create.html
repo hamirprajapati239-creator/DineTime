@@ -1,0 +1,10 @@
+<h2>Add Food Item</h2>
+
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+
+<button type="submit">Save</button>
+</form>
+
+<a href="{% url 'fooditem_list' %}">Back</a>

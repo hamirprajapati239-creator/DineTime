@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to your Dashboard, {{ request.user.username }}!</h1>
+<p>Here you can manage your profile, view your orders, and book tables.</p> 
+{{request.user.role}}
+<p>{{request.user}}</p>
+{% endblock content %}

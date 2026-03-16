@@ -1,0 +1,110 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+
+background:#0f172a;
+color:white;
+
+}
+
+/* Page Title */
+
+.title{
+
+text-align:center;
+margin:40px 0;
+font-size:32px;
+
+}
+
+/* Booking Grid */
+
+.booking-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+padding:40px;
+
+}
+
+/* Booking Card */
+
+.booking-card{
+
+background:#1e293b;
+padding:25px;
+border-radius:12px;
+transition:0.4s;
+position:relative;
+
+}
+
+.booking-card:hover{
+
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
+
+}
+
+.booking-card h2{
+
+margin-bottom:15px;
+color:#f59e0b;
+
+}
+
+.booking-card p{
+
+margin-bottom:8px;
+
+}
+
+/* Status */
+
+.status{
+
+display:inline-block;
+background:#22c55e;
+padding:5px 12px;
+border-radius:20px;
+font-size:14px;
+margin-top:10px;
+
+}
+
+/* Cancel Button */
+
+.cancel-btn{
+
+display:inline-block;
+margin-top:15px;
+padding:8px 16px;
+background:#ef4444;
+color:white;
+border-radius:6px;
+text-decoration:none;
+transition:0.3s;
+
+}
+
+.cancel-btn:hover{
+
+background:#dc2626;
+transform:scale(1.05);
+
+}
+
+/* No Booking */
+
+.no-booking{
+
+text-align:center;
+font-size:18px;
+
+}

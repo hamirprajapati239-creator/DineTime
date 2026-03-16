@@ -1,0 +1,25 @@
+<h2>Payment List</h2> 
+<table>
+<tr>    
+<th>Order</th>
+<th>Amount</th>
+<th>Payment Method</th>
+<th>Actions</th>
+</tr>
+{% for payment in payments %}
+<tr>
+<td>{{ payment.order }}</td>
+<td>{{ payment.amount }}</td>
+<td>{{ payment.payment_method }}</td>
+<td>        
+<a href="{% url 'payment_update' payment.id %}">Edit</a>
+<a href="{% url 'payment_delete' payment.id %}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+<a href="{% url 'payment_create' %}">Create New Payment</a>
+
+
+
+

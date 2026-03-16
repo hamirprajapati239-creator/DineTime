@@ -1,0 +1,62 @@
+<!-- <form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Signup</button>
+</form> -->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Create Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.non_field_errors }}
+
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            {{ form.firstname.label_tag }}
+            {{ form.firstname }}
+            {{ form.firstname.errors }}
+
+            {{ form.lastname.label_tag }}
+            {{ form.lastname }}
+            {{ form.lastname.errors }}
+
+            {{ form.age.label_tag }}
+            {{ form.age }}
+            {{ form.age.errors }}
+
+            {{ form.role.label_tag }}
+            {{ form.role }}
+            {{ form.role.errors }}
+
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <button type="submit">Signup</button>
+        </form>
+
+        <div class="link">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
+

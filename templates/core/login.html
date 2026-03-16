@@ -1,0 +1,94 @@
+{% comment %} 
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Login</button>
+</form> {% endcomment %}
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="login-wrapper">
+    <form method="POST" class="login-card">
+        {% csrf_token %}
+        
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Please login to your account</p>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+</div>
+
+</body>
+</html> {% endcomment %}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2> Login </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.non_field_errors }}
+
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+
+
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+
+
+{% comment %} 
+             <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div> {% endcomment %}
+
+
+            <button type="submit">Login</button>
+        </form>
+         <div class="link">
+            First Sigup here
+            <a href="{% url 'signup' %}">Signup</a>
+        </div>
+        {% comment %} <div class="link">
+            ypu account doesnot exist
+            <a href="{% url 'signup' %}">signup</a>
+        </div> {% endcomment %}
+    </div>
+</body>
+</html>
+

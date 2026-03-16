@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DineTime | Contact Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0') no-repeat center center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    padding:40px 20px;
+}
+
+.container{
+    width:100%;
+    max-width:1100px;
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    animation: fadeIn 1.2s ease;
+}
+
+.contact-info, .contact-form{
+    flex:1;
+    min-width:300px;
+    padding:40px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:40px;
+    letter-spacing:2px;
+}
+
+.contact-info h2,
+.contact-form h2{
+    margin-bottom:20px;
+    border-bottom:2px solid rgba(255,255,255,0.3);
+    padding-bottom:10px;
+}
+
+.contact-info p{
+    margin:15px 0;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    outline:none;
+}
+
+.contact-form textarea{
+    resize:none;
+    height:120px;
+}
+
+.contact-form button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#ff8c00;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.contact-form button:hover{
+    background:#ffa733;
+    transform:scale(1.05);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+    .container{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div>
+    <h1>📞 Contact DineTime</h1>
+    <div class="container">
+
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+            <p><strong>📍 Address:</strong> 123 Food Street, City Center</p>
+            <p><strong>📞 Phone:</strong> +91 98765 43210</p>
+            <p><strong>📧 Email:</strong> info@dinetime.com</p>
+            <p><strong>🕒 Opening Hours:</strong><br>
+            Mon - Sun: 10:00 AM – 11:00 PM</p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send a Message</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

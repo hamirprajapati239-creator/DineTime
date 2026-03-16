@@ -1,0 +1,49 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'owner/owner_sidebar.css' %}">
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>DineTime</h2>
+        <p>Owner Panel</p>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="{% if request.path == 'owner_dashboard/' %}active{% endif %}">
+            <a href="{% url 'owner_dashboard' %}">
+                <span>🏠</span> Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span>🍽️</span> Manage Menu
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span>📦</span> Orders
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span>👥</span> Customers
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span>📊</span> Reports
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span>⚙️</span> Settings
+            </a>
+        </li>
+
+        
+    </ul>
+</div>

@@ -1,0 +1,23 @@
+<h2> orderdetails List</h2>
+<table>
+<tr>
+<th>Order</th>
+<th>Food Item</th>
+<th>Quantity</th>
+<th>Actions</th>
+</tr>
+{% for orderdetail in orderdetails %}
+<tr>                    
+<td>{{ orderdetail.order }}</td>
+<td>{{ orderdetail.food_item }}</td>    
+<td>{{ orderdetail.quantity }}</td>
+<td>
+
+
+<a href="{% url 'orderdetail_update' orderdetail.id %}">Edit</a>
+<a href="{% url 'orderdetail_delete' orderdetail.id %}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>

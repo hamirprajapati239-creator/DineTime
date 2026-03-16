@@ -1,0 +1,7 @@
+<h2> payment</h2>   
+<form method="POST">        
+{% csrf_token %}
+{{ form.as_p }}                                                
+<button type="submit">Save</button>
+</form>                    
+<a href="{% url 'payment_list' %}">Back</a>     
