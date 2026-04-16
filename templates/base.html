@@ -4,24 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <link rel="stylesheet" href="{% static 'css/home.css' %}"> 
-     <link rel="stylesheet" href="/static/user/profile.css">
-     
+    <title>DineTime</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'user/profile.css' %}">
+
+    <!-- ✅ ADD THIS BLOCK (IMPORTANT) -->
+    {% block extra_css %}{% endblock %}
+
 </head>
+
 <body>
-    {% comment %} //check rol for navbar... {% endcomment %}
+
+    <!-- Navbar / Sidebar -->
     {% if request.user.role == 'owner' %}
-        {% include 'dine/owner/ownersiderbar.html' %}
+        {% include 'dine/owner/ownersidebar.html' %}
     {% elif request.user.role == 'user' %}
-        {% include 'dine/user/usersiderbar.html' %}
+        {% include 'dine/user/usernavbar.html' %}
     {% endif %}
 
+    <!-- Main Content -->
     <div class="content">
         {% block content %}
-        <a href="/logout/">Logout</a>
-        {% endblock content %}</div>
+            <a href="/logout/">Logout</a>
+        {% endblock %}
+    </div>
 
-    
 </body>
 </html>

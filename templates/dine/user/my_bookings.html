@@ -1,56 +1,85 @@
-
 {% load static %}
-
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>DineTime - My Bookings</title>
-
-<link rel="stylesheet" href="{% static 'css/mybookings.css' %}">
-
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="{% static 'user/my_bookings.css' %}">
 </head>
 
 <body>
 
-<div class="booking-container">
+<div class="container">
 
-<h1 class="title">🍽 My Table Bookings</h1>
+    <h1 class="title">My Bookings</h1>
 
-<div class="booking-grid">
+    <div class="grid">
 
-{% for booking in bookings %}
+        {% for booking in bookings %}
+        <div class="card">
 
-<div class="booking-card">
+            <!-- Image -->
+            {% comment %} <img src="{{ booking.restaurant.image.url }}" class="img"> {% endcomment %}
 
-<h2>Table Reservation</h2>
+            <!-- Content -->
+            <div class="content">
 
-<p><strong>Date:</strong> {{ booking.date }}</p>
+<p> {{ booking.restaurant }}</p>
 
-<p><strong>Time:</strong> {{ booking.time }}</p>
+                <p>📅 {{ booking.date }}</p>
+                <p>⏰ {{ booking.selected_slot }}</p>
+                <p>👥 {{ booking.number_of_people }} People</p>
 
-<p><strong>Guests:</strong> {{ booking.guests }}</p>
+                <!-- Status -->
+                <span class="status {{ booking.status|lower }}">s
+                    {{ booking.status }}
+                </span>
 
-<p class="status">{{ booking.status }}</p>
+                <!-- Refund -->
+                {% if booking.refund %}
+                <p class="refund">
+                    💰 Refund: {{ booking.refund.status }}
+                </p>
+                {% endif %}
 
-<form method="POST" action="{% url 'cancel_booking' booking.id %}">
-{% csrf_token %}
+                <!-- Actions -->
+                {% if booking.status == "CONFIRMED" %}
+                <button class="cancel-btn"
+                        onclick="cancelBooking('{{ booking.booking_id }}')">
+                    Cancel Booking
+                </button>
+                {% endif %}
 
-<a href="{% url 'cancel_booking' booking.id %}" class="cancel-btn">
-Cancel Booking
-</a>
+            </div>
+
+        </div>
+        {% empty %}
+        <p>No bookings found</p>
+        {% endfor %}
+
+    </div>
 
 </div>
 
-{% empty %}
+<script>
+function cancelBooking(id){
 
-<p class="no-booking">No bookings found</p>
+    if(!confirm("Cancel this booking?")) return;
 
-{% endfor %}
-
-</div>
-
-</div>
+    fetch(`/cancel-booking/${id}/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.status === "success"){
+            location.reload();
+        }
+    });
+}
+</script>
 
 </body>
 </html>

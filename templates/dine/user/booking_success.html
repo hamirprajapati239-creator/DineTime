@@ -1,0 +1,161 @@
+{% comment %} {% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'user/booking_success.css' %}">
+    <title>Booking Confirmed | DineTime</title>
+</head>
+<body>
+
+<div class="success-wrapper">
+    <div class="status-container">
+        <div class="check-circle">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h1>Reservation Confirmed!</h1>
+        <p>We've sent a confirmation email to {{ booking.email }}</p>
+    </div>
+
+    <div class="ticket-card">
+        <div class="ticket-header">
+            <div class="restaurant-info">
+                <h2>{{ booking.restaurant.name }}</h2>
+                <span><i class="fa-solid fa-location-dot"></i> {{ booking.restaurant.location }}</span>
+            </div>
+            <div class="booking-badge">Confirmed</div>
+        </div>
+
+        <div class="ticket-divider"></div>
+
+        <div class="ticket-body">
+            <div class="info-row">
+                <div class="info-item">
+                    <small>DATE</small>
+                    <strong>{{ booking.date|date:"l, d M Y" }}</strong>
+                </div>
+                <div class="info-item">
+                    <small>TIME</small>
+                    <strong>{{ booking.selected_slot.specific_time|time:"h:i A" }}</strong>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-item">
+                    <small>GUESTS</small>
+                    <strong>{{ booking.number_of_people }} Person(s)</strong>
+                </div>
+                <div class="info-item">
+                    <small>BOOKING ID</small>
+                    <code class="uuid-text">{{ booking.booking_id|stringformat:".8s" }}...</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="ticket-footer">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ booking.booking_id }}" alt="QR Code" class="qr-code">
+            <p>Show this QR code at the restaurant</p>
+        </div>
+    </div>
+
+    <div class="action-group">
+        <a href="{% url 'home' %}" class="btn-primary">Back to Home</a>
+        <a href="{% url 'my_bookings' %}" class="btn-secondary">View My Bookings</a>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %} {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed | DineTime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'user/booking_success.css' %}">
+</head>
+<body>
+
+<div class="success-container">
+    <div class="success-header">
+        <div class="checkmark-wrapper">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+        <h1>Booking Confirmed!</h1>
+        <p>Yay! Your table is reserved at <strong>{{ booking.restaurant.name }}</strong></p>
+    </div>
+
+    <div class="details-card">
+        <div class="detail-item">
+            <span class="label">Booking ID</span>
+            <span class="value">#{{ booking.booking_id|stringformat:".8s" }}...</span>
+        </div>
+        <hr>
+        <div class="info-grid">
+            <div class="info-box">
+                <i class="fa-solid fa-calendar-day"></i>
+                <div class="info-text">
+                    <small>Date</small>
+                    <strong>{{ booking.date }}</strong>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="fa-solid fa-clock"></i>
+                <div class="info-text">
+                    <small>Time</small>
+                    <strong>{{ booking.selected_slot.specific_time|time:"h:i A" }}</strong>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="fa-solid fa-users"></i>
+                <div class="info-text">
+                    <small>Guests</small>
+                    <strong>{{ booking.number_of_people }} People</strong>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="fa-solid fa-user"></i>
+                <div class="info-text">
+                    <small>Reserved for</small>
+                    <strong>{{ booking.name }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-footer">
+        <p class="confirmation-msg">A confirmation email has been sent to {{ booking.email }}</p>
+        <div class="btn-group">
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="fa-solid fa-house"></i> Back to Home
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <i class="fa-solid fa-print"></i> Download Receipt
+            </button>
+
+
+            <h2>Payment Successful 🎉</h2>
+
+<p>Payment ID: {{ payment_id }}</p>
+<p>Order ID: {{ order_id }}</p>
+
+<a href="{% url 'my_bookings' %}">Go to My Bookings</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

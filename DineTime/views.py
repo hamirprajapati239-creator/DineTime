@@ -1,7 +1,13 @@
 from django.shortcuts import render
 
+from DineTime.dine.models import Restaurant
+
 def home(request):
-    return render(request, 'home.html')
+    restaurant = Restaurant.objects.first() 
+    context = {
+        'restaurant': restaurant,  
+    }
+    return render(request, 'home.html', context)
 def Menu(request):
     return render(request,'Menu.html')
 def About(request):

@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant.restaurant_name }} | DineTime</title>
+    <link rel="stylesheet" href="{% static 'css/restaurant_details.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('{{ restaurant.restaurantImage.url }}');">
+    <div class="hero-content">
+        <h1>{{ restaurant.restaurant_name }}</h1>
+       <div class="tab-bar">
+    <span class="tab active" onclick="switchTab(event, 'dineout-section')">Dineout</span>
+    <span class="tab" onclick="switchTab(event, 'photos-section')">Photos</span>
+    <span class="tab" onclick="switchTab(event, 'menu-section')">Menu</span>
+</div>
+
+{% comment %} <div id="dineout-section" class="tab-content">
+    <div class="info-card"> ... </div>
+</div> {% endcomment %}
+
+<div id="photos-section" class="tab-content" style="display: none;">
+    <h3 class="section-title">Restaurant Gallery</h3>
+    <div class="photo-grid">
+        {% for photo in photos %}
+            <img src="{{ photo.image.url }}" class="gallery-img">
+        {% empty %}
+            <p>No photos available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="menu-section" class="tab-content" style="display: none;">
+    <h3 class="section-title">Recommended Menu</h3>
+    <div class="food-grid">
+        {% for item in fooditems %}
+            <div class="food-card"> ... </div>
+        {% endfor %}
+    </div>
+</div>
+    </div>
+</header>
+
+<div class="main-container">
+    <div class="info-card">
+        <div class="info-header">
+            <span class="rating-badge"><i class="fas fa-star"></i> {{ restaurant.rating }}</span>
+            <span class="cost-text">• ₹{{ restaurant.cost_for_two }} for two</span>
+        </div>
+        
+        <p class="cuisine">{{ restaurant.cuisine }}</p>
+        <p class="address"><i class="fas fa-map-marker-alt"></i> {{ restaurant.address }}</p>
+        <p class="status">Open now • <span class="time">CLOSE AT {{ restaurant.closing_time|time:"g:i A" }}</span></p>
+        
+        <div class="action-buttons">
+            <a href="{% url 'book_table' restaurant.id %}" class="btn btn-book">
+                <i class="far fa-calendar-check"></i> Book Table
+            </a>
+            
+            {% if restaurant.contact_no %}
+            <a href="tel:{{ restaurant.contact_no }}" class="btn btn-white">
+                <i class="fas fa-phone-alt"></i> Call
+            </a>
+            {% endif %}
+
+            {% if google_maps_url %}
+            <a href="{{ google_maps_url }}" target="_blank" class="btn btn-white">
+                <i class="fas fa-location-arrow"></i> Direction
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <section class="menu-section">
+        <h3 class="section-title">Recommended Menu</h3>
+        <div class="food-grid">
+            {% for item in fooditems %}
+            <div class="food-card">
+                <div class="food-details">
+                    <div class="veg-non-icon {% if item.is_veg %}veg{% else %}non-veg{% endif %}"></div>
+                    <h4>{{ item.food_name }}</h4>
+                    <p class="price">₹{{ item.price }}</p>
+                    <p class="desc">{{ item.description|truncatechars:70 }}</p>
+                </div>
+                <div class="food-img-container">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.food_name }}">
+                    {% else %}
+                    <div class="no-img"></div>
+                    {% endif %}
+                    <button class="add-btn">ADD</button>
+                </div>
+            </div>
+            {% empty %}
+            <p>No menu items available.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+</body>
+
+<script>
+function switchTab(event, sectionId) {
+    // 1. Hide all tab content sections
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => {
+        content.style.display = 'none';
+    });
+
+    // 2. Remove 'active' class from all tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // 3. Show the clicked section
+    document.getElementById(sectionId).style.display = 'block';
+
+    // 4. Add 'active' class to the clicked tab
+    event.currentTarget.classList.add('active');
+}
+</script>
+</html>

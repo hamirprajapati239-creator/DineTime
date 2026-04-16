@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'user/book_table.css' %}">
+</head>
+<body>
+
+<div class="main-wrapper">
+    <form method="POST" action="{% url 'book_table' restaurant.id %}" id="bookingForm">
+        {% csrf_token %}
+
+        <div class="booking-section">
+            <h2><i class="fa-solid fa-user-group"></i> Number of guest(s)</h2>
+            <div class="guest-scroll">
+                {% for i in "123456789"|make_list %}
+                <label class="guest-card">
+                    <input type="radio" name="number_of_people" value="{{ forloop.counter }}" {% if forloop.counter == 2 %}checked{% endif %}>
+                    <div class="guest-box">
+                        <span>{{ forloop.counter }}</span>
+                    </div>
+                </label>
+                {% endfor %}
+                <label class="guest-card">
+                    <input type="radio" name="number_of_people" value="10">
+                    <div class="guest-box">
+                        <span>10+</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="booking-container">
+            <h2><i class="fa-solid fa-calendar-check"></i> When are you visiting?</h2>
+            <div class="date-scroll">
+                {% for date_item in date_list %}
+                <label class="date-card">
+                    <input type="radio" name="date" value="{{ date_item.full_date }}" {% if forloop.first %}checked{% endif %}>
+                    <div class="card-content">
+                        <span class="day-name">{{ date_item.day_name }}</span>
+                        <strong class="day-date">{{ date_item.display_date }}</strong>
+                        <small class="discount-badge">10% off</small>
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+
+            <div class="section-divider">
+                <span><i class="fa-solid fa-clock"></i> Select the time of day</span>
+            </div>
+
+       
+<div class="meal-section">
+{% for category in categories %}
+<div class="meal-section">
+    <div class="meal-header" onclick="toggleCategory(this)" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <div class="meal-title-group" style="display: flex; align-items: center; gap: 15px;">
+            <div class="meal-icon-box" style="font-size: 1.5rem; opacity: 0.8;">
+                {% if "Breakfast" in category.name %}<i class="fa-solid fa-mug-hot"></i>
+                {% elif "Lunch" in category.name %}<i class="fa-solid fa-utensils"></i>
+                {% elif "Dinner" in category.name %}<i class="fa-solid fa-wine-glass"></i>
+                {% else %}<i class="fa-solid fa-moon"></i>{% endif %}
+            </div>
+            <div class="meal-text-group">
+                <h3 style="margin:0; font-size: 1.1rem;">{{ category.name }}</h3>
+                <p class="meal-subtext" style="margin:0; font-size: 0.85rem; color: var(--text-muted);">
+                    {{ category.start_time|time:"h:i A" }} - {{ category.end_time|time:"h:i A" }}
+                </p>
+            </div>
+        </div>
+        <div class="toggle-arrow">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <div class="time-grid-wrapper">
+        <div class="time-grid">
+            {% for slot in category.slots.all %}
+            <label class="time-slot">
+                <input type="radio" name="time" value="{{ slot.id }}" {% if not slot.is_available %}disabled{% endif %}>
+                <div class="slot-box" style="padding: 12px; text-align: center;">
+                    <span class="slot-time" style="display: block; font-weight: 700;">{{ slot.specific_time|time:"h:i A" }}</span>
+                    <small class="slot-discount" style="color: #26de81; font-weight: 600;">{{ slot.discount_percentage }}% off</small>
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+            <div class="footer-action">
+                <button type="submit" class="proceed-btn" id="proceed-btn">
+                    Confirm Booking <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleCategory(headerElement) {
+    const section = headerElement.parentElement;
+    
+    // Check if this section is already active
+    const isActive = section.classList.contains('active');
+    
+    // Close all other sections first (Optional: remove this if you want multiple open)
+    document.querySelectorAll('.meal-section').forEach(s => s.classList.remove('active'));
+    
+    // If it wasn't active, open it
+    if (!isActive) {
+        section.classList.add('active');
+    }
+}
+    const timeSlots = document.querySelectorAll('input[name="time"]');
+    const proceedBtn = document.getElementById('proceed-btn');
+
+    timeSlots.forEach(slot => {
+        slot.addEventListener('change', () => {
+            if (slot.checked) {
+                proceedBtn.classList.add('active'); 
+                proceedBtn.disabled = false;
+            }
+        });
+    });
+</script>
+</body>
+</html>

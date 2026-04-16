@@ -1,7 +1,87 @@
-{% extends 'base.html' %}
+{% extends 'dine/owner/ownersidebar.html' %}
+{% load static %}
+
 {% block content %}
-<h1>OWNER DASHBAORD</h1>
-{{request.user.role}}
-{{request.user.name}}
-<p>{{request.user}}</p>
-{% endblock content %}
+<link rel="stylesheet" href="{% static 'owner/owner_dashboard.css' %}">
+
+<div class="dashboard-container">
+    <div class="header">
+        <h1>Welcome Back, Owner</h1>
+        <p>Your restaurant is performing well today.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="card">
+            <div class="card-icon blue"><i class='bx bx-calendar'></i></div>
+            <div class="card-info">
+                <h3>{{ total_bookings }}</h3>
+                <p>New Bookings</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon orange"><i class='bx bx-group'></i></div>
+            <div class="card-info">
+                <h3>{{ expected_guests }}</h3>
+                <p>Expected Guests</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon green"><i class='bx bx-trending-up'></i></div>
+            <div class="card-info">
+                <h3>${{ total_revenue|floatformat:2 }}</h3>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="table-container">
+            <div class="table-header">
+                <h2>Live Reservations</h2>
+                <a href="{% url 'reservation' %}" class="btn-view">View All</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest</th>
+                        <th>Time</th>
+                        <th>Table</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for res in recent_reservations %}
+                    <tr>
+                        <td><strong>{{ res.user.username }}</strong><br><small>{{ res.party_size }} Guests</small></td>
+                        <td>{{ res.selected_slot.start_time|time:"H:i" }}</td>
+                        <td>{{ res.table_number|default:"N/A" }}</td>
+                        <td><span class="status-badge {{ res.status|lower }}">{{ res.status }}</span></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No recent bookings found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="status-container">
+            <h2>Floor Status</h2>
+            <div class="status-list">
+                <div class="status-item">
+                    <span>Available Tables</span>
+                    <span class="count">{{ available_tables }}</span>
+                </div>
+                <div class="status-item">
+                    <span>Occupied</span>
+                    <span class="count occupied">{{ occupied_tables }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

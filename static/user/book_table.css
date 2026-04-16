@@ -1,0 +1,420 @@
+:root {
+    --primary: #ff4757;
+    --primary-hover: #e84118;
+    --secondary: #2f3542;
+    --success: #2ed573;
+    --bg-body: #f1f2f6;
+    --card-bg: #ffffff;
+    --border-color: #dfe4ea;
+    --text-main: #2f3542;
+    --text-muted: #a4b0be;
+    --shadow: 0 10px 25px rgba(0,0,0,0.05);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px 10px;
+}
+
+.main-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Typography & Icons */
+h2 {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+h2 i { color: var(--primary); }
+
+/* Horizontal Scrolling */
+.guest-scroll, .date-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 15px;
+    scrollbar-width: none;
+}
+
+.guest-scroll::-webkit-scrollbar, .date-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide Radio Buttons */
+input[type="radio"] {
+    display: none;
+}
+
+/* Guest Cards */
+.guest-box {
+    width: 55px;
+    height: 55px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* Date Cards */
+.card-content {
+    min-width: 90px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.day-name { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); }
+.day-date { font-size: 1.1rem; margin: 4px 0; }
+.discount-badge { color: var(--success); font-weight: 700; font-size: 0.75rem; }
+
+/* Time Slots */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.slot-box {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slot-time { display: block; font-weight: 600; font-size: 0.9rem; }
+.slot-discount { font-size: 0.7rem; color: var(--success); }
+
+/* Selection States */
+input[type="radio"]:checked + .guest-box,
+input[type="radio"]:checked + .card-content,
+input[type="radio"]:checked + .slot-box {
+    border-color: var(--primary);
+    background-color: #fffafa;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(255, 71, 87, 0.15);
+}
+
+/* Icons for Category */
+.meal-header h3 {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0 15px;
+}
+
+.meal-header i {
+    width: 32px;
+    height: 32px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.time-range {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* Divider */
+.section-divider {
+    border-bottom: 1px solid var(--border-color);
+    margin: 30px 0;
+    position: relative;
+}
+
+.section-divider span {
+    position: absolute;
+    top: -12px;
+    left: 0;
+    background: var(--bg-body);
+    padding-right: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Proceed Button */
+.proceed-btn {
+    width: 100%;
+    background: #ced6e0;
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 30px;
+    cursor: not-allowed;
+    transition: var(--transition);
+}
+
+.proceed-btn.active {
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.2);
+}
+
+.proceed-btn.active:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.meal-section {
+    animation: fadeInUp 0.4s ease forwards;
+}
+/* Card Container */
+.meal-section {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+/* Header Flexbox */
+.meal-header {
+    display: flex;
+    justify-content: space-between; /* Pushes arrow to the right */
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.meal-title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.meal-icon-box i {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.meal-text-group h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.meal-subtext {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #777;
+    font-weight: 500;
+}
+
+/* The Right-side Icon */
+.toggle-arrow {
+    font-size: 1.4rem;
+    color: #ccc;
+    transition: transform 0.3s ease;
+}
+
+/* Time Grid Container for Animation */
+.time-grid-wrapper {
+    max-height: 0; /* Closed by default */
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 20px 20px 20px; /* Padding only at bottom when open */
+}
+
+/* Active State */
+.meal-section.active .time-grid-wrapper {
+    max-height: 500px; /* Big enough for slots */
+}
+
+.meal-section.active .toggle-arrow {
+    transform: rotate(180deg);
+    color: #333;
+}
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --primary-gradient: linear-gradient(135deg, #ff5e62 0%, #ff9966 100%);
+    --text-main: #1e272e;
+    --text-muted: #576574;
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+body {
+    /* Subtle mesh gradient background */
+    background: radial-gradient(at 0% 0%, #f1f2f6 0, transparent 50%), 
+                radial-gradient(at 50% 0%, #e8ecf1 0, transparent 50%), 
+                radial-gradient(at 100% 0%, #f1f2f6 0, transparent 50%);
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    padding: 20px 10px;
+}
+
+.main-wrapper {
+    max-width: 550px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Glass Card Style */
+.booking-section, .meal-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Horizontal Scroll with hidden bars */
+.guest-scroll, .date-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 10px 0;
+    scrollbar-width: none;
+}
+.guest-scroll::-webkit-scrollbar { display: none; }
+
+/* Selection Toggles */
+input[type="radio"] { display: none; }
+
+.guest-box, .card-content, .slot-box {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1.5px solid transparent;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* Hover & Active States */
+input[type="radio"]:checked + .guest-box,
+input[type="radio"]:checked + .card-content,
+input[type="radio"]:checked + .slot-box {
+    background: white;
+    border-color: #ff5e62;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(255, 94, 98, 0.2);
+}
+
+/* The Red Circular Arrow */
+.toggle-arrow {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meal-section.active .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+/* Accordion Animation */
+.time-grid-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meal-section.active .time-grid-wrapper {
+    max-height: 600px; /* High enough for slots */
+    margin-top: 15px;
+}
+
+/* Grid for time slots */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 5px;
+}
+
+/* Proceed Button */
+.proceed-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 20px;
+    background: #d1d8e0;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+}
+
+.proceed-btn.active {
+    background: var(--primary-gradient);
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(255, 94, 98, 0.3);
+}
+
+.proceed-btn.active:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+}
+
+/* Entrance Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered load for meal sections */
+.meal-section:nth-child(1) { animation-delay: 0.1s; }
+.meal-section:nth-child(2) { animation-delay: 0.2s; }
+.meal-section:nth-child(3) { animation-delay: 0.3s; }
+
+
+
+

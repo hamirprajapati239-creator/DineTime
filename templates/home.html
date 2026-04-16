@@ -3,235 +3,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dine Time | Home</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link
-  rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 
 <body>
-
-<!-- Navbar -->
  <nav class="navbar">
     <div class="logo">🍽 Dine Time</div>
-    <ul>
-        <li><a href="{%url 'home'%}"> HOME </a></li>
-        <li><a href="{%url 'Menu'%}">Menu</a></li>
-        <li><a href="{%url 'book_table'%}">Book a Table</a></li>
-        <li><a href="{%url 'About'%}">About us</a></li>
-        <li><a href="{%url 'Contact'%}">Contact us</a></li>
+    <ul class="nav-links">
+        <li><a href="{%url 'home'%}">HOME</a></li>
         <li><a href="{%url 'login'%}">Login</a></li>
-        <li><a href="{%url 'signup'%}">Register</a></li>
+        <li><a href="{%url 'signup'%}" class="btn-signup">Register</a></li>
     </ul>
-</nav>
-
-
-<!-- Hero Section -->
-<!-- HERO SECTION -->
-
-<!-- AUTO SLIDER -->
-
-
-<!-- About Section -->
-{% comment %} <section class="about">
-    <h2>About Us</h2>
-    <p>
-        Dine Time is a smart restaurant management system designed to 
-        manage orders, reservations and customers smoothly.
-    </p>
-</section>
-
-<!-- Services -->
-<section class="services">
-    <h2>Our Services</h2>
-    <div class="service-box">
-        <div class="card"> Online Ordering</div>
-        <div class="card"> Table Reservation</div>
-        <div class="card"> Secure Payment</div>
-    </div>
-</section> {% endcomment %}
-<!-- Featured Dishes -->
-
-<!-- HERO SECTION -->
+</nav> 
 
 <section class="hero">
+    <div class="hero-text" data-aos="zoom-out" data-aos-duration="1200">
+        <h1>Welcome to <span>DineTime</span></h1>
+        <h2>Experience the Taste of Happiness</h2>
+        <p>Book your table and enjoy delicious meals</p>
 
-<div class="hero-text">
-
-<h1>Welcome to <span>DineTime</span></h1>
-<h2>Experience the Taste of Happiness</h2>
-<p>Book your table and enjoy delicious meals</p>
-
-<div class="hero-buttons">
-
-<button class="btn-primary">Book a Table</button>
-<button class="btn-outline">View Menu</button>
-
-<form method="GET" action="{% url 'search_restaurant' %}" class="search-box">
-
-    <input type="text" name="q" placeholder="Search for restaurant, item or more">
-
-    <button type="submit">
-        🔍
-    </button>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- POPULAR DISHES -->
-
-<section class="dishes">
-
-<h2>Popular <span>Dishes</span></h2>
-
-<div class="dish-container">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80" alt="Pizza">
-<h3>Margherita Pizza</h3>
-<p>$12.99</p>
-<button>Order Now</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" alt="Cheese Burger">
-<h3>Classic Burger</h3>
-<p>$10.99</p>
-<button>Order Now</button>
-</div>
-
-<div class="card">
-<img src="https://cdn.apartmenttherapy.info/image/upload/v1687538031/k/Photo/Recipes/2023-06-chicken-alfredo-pasta-reshoot/chicken-alfredo-pasta-1-vertical.jpg" alt="Pasta">
-<h3>Creamy Pasta</h3>
-<p>$11.99</p>
-<button>Order Now</button>
-</div>
-
-<div class="card">
-<img src="https://www.allrecipes.com/thmb/NaawPA_BDXmFLBHxvmCKZK0lVuI%3D/0x512/filters%3Ano_upscale%28%29%3Amax_bytes%28150000%29%3Astrip_icc%28%29/19960-avocado-salad-VAT-001-4x3-64241afdc3b04d00a9372e1573eac6f7.jpg">
-<h3>Fresh Salad</h3>
-<p>$8.99</p>
-<button>Order Now</button>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- WHY CHOOSE US -->
+        <div class="search-wrapper">
+            <form method="GET" action="{% url 'search_restaurant' %}" class="search-box">
+                <div class="input-group">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" name="q" placeholder="Search for restaurant, item or more">
+                </div>
+                <button type="submit" class="search-submit-btn">Search</button>
+            </form>
+        </div>
+    </div>
+</section> 
 
 <section class="why">
-
-<h2>Why Choose <span>DineTime?</span></h2>
-
-<div class="why-box">
-
-<div class="feature">
-<i class="fa-solid fa-leaf"></i>
-<p>Fresh Ingredients</p>
-</div>
-
-<div class="feature">
-  <i class="fa-solid fa-utensils"></i>
-  <p>Professional Chefs</p>
-</div>
-
-<div class="feature">
-<i class="fa-solid fa-truck"></i>
-<p>Fast Delivery</p>
-</div>
-
-<div class="feature">
-<i class="fa-solid fa-calendar-check"></i>
-<p>Easy Reservations</p>
-</div>
-
-</div>
-
+    <h2 data-aos="fade-up">Why Choose <span>DineTime?</span></h2>
+    <div class="why-box">
+        <div class="feature" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa-solid fa-leaf"></i>
+            <p>Fresh Ingredients</p>
+        </div>
+        <div class="feature" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa-solid fa-utensils"></i>
+            <p>Professional Chefs</p>
+        </div>
+        <div class="feature" data-aos="fade-up" data-aos-delay="300">
+            <i class="fa-solid fa-truck"></i>
+            <p>Fast Delivery</p>
+        </div>
+        <div class="feature" data-aos="fade-up" data-aos-delay="400">
+            <i class="fa-solid fa-calendar-check"></i>
+            <p>Easy Reservations</p>
+        </div>
+    </div>
 </section>
 
-
-<!-- RESERVATION -->
-
-<section class="reserve">
-
-<h2>Reserve Your Table <span>Now</span></h2>
-
-<p>Enjoy a wonderful dining experience with your family and friends.</p>
-
-<button class="btn-primary">Book a Table</button>
-
+<section class="reserve" data-aos="zoom-in-up">
+    <h2>Reserve Your Table <span>Now</span></h2>
+    <p>Enjoy a wonderful dining experience with your family and friends.</p>
+    <button class="btn-primary">Book a Table</button>
 </section>
-<!-- GALLERY -->
 
 <section class="gallery">
-
-  <h2>Our <span>Gallery</span></h2>
-
+  <h2 data-aos="fade-down">Our <span>Gallery</span></h2>
   <div class="gallery-container">
-
-    <div class="gallery-item">
-      <img src="https://www.theleela.com/prod/content/assets/2021-07/Picture-Gallery-1_22.jpg?VersionId=V5S7gYX_KQoISW_qcMaQVM3XaPTekBSm" alt="Gallery Image 1">
+    <div class="gallery-item" data-aos="flip-left" data-aos-delay="100">
+      <img src="https://www.theleela.com/prod/content/assets/2021-07/Picture-Gallery-1_22.jpg" alt="Gallery 1">
     </div>
-
-    <div class="gallery-item">
-      <img src="https://www.theleela.com/prod/content/assets/2025-09/Non-Veg%20Thali-jamavar-jaipur.jpg?VersionId=5BowSVcKgv3be40BQhw6Sa3hpppzyEV0" alt="Gallery Image 2">
+    <div class="gallery-item" data-aos="flip-left" data-aos-delay="200">
+      <img src="https://www.theleela.com/prod/content/assets/2025-09/Non-Veg%20Thali-jamavar-jaipur.jpg" alt="Gallery 2">
     </div>
-
-    <div class="gallery-item">
-      <img src="https://www.theleela.com/prod/content/assets/2025-09/Veg-Thali-jamavar-jaipur.jpg?VersionId=QgzFtMnT3YLgk51WiQR0umP7N3Usb.n4" alt="Gallery Image 3">
+    <div class="gallery-item" data-aos="flip-left" data-aos-delay="300">
+      <img src="https://www.theleela.com/prod/content/assets/2025-09/Veg-Thali-jamavar-jaipur.jpg" alt="Gallery 3">
     </div>
-
-    <div class="gallery-item">
-      <img src="https://www.theleela.com/prod/content/assets/2021-09/1Mohan-Mahal-376x376.jpg?VersionId=zUoyVSVHQpj7Tv6KNDC0AKdhLXp7yivr" alt="Gallery Image 4">
+    <div class="gallery-item" data-aos="flip-left" data-aos-delay="400">
+      <img src="https://www.theleela.com/prod/content/assets/2021-09/1Mohan-Mahal-376x376.jpg" alt="Gallery 4">
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- FOOTER -->
-
 <footer>
-
-
-<div class="contact">
-
-<h3>Get in Touch</h3>
-
-<p>📍 Ahmedabad, Gujarat</p>
-<p>📞 +91 98765 43210</p>
-<p>✉ info@dinetime.com</p>
-
-</div>
-
-<div class="social-icons">
-
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
-
-</div>
-
-<p class="copyright">
-© 2026 DineTime | Delicious Food & Great Experience
-</p>
-
+    <div class="contact" data-aos="fade-in">
+        <h3>Get in Touch</h3>
+        <p>📍 Ahmedabad, Gujarat</p>
+        <p>📞 +91 98765 43210</p>
+        <p>✉ info@dinetime.com</p>
+    </div>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p class="copyright">© 2026 DineTime | Delicious Food & Great Experience</p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, // Animation duration in ms
+    once: true,     // Whether animation should happen only once
+    offset: 100,    // Offset from the original trigger point
+  });
+</script>
 
 </body>
 </html>
-

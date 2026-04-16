@@ -1,0 +1,75 @@
+{% extends 'dine/owner/ownersidebar.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'owner/manage_menu.css' %}">
+
+<div class="menu-wrapper animate__animated animate__fadeIn">
+    <div class="menu-header">
+        <div class="header-text">
+            <h1>Menu Management</h1>
+            <p>Update your dishes, prices, and availability in real-time.</p>
+        </div>
+        <div class="header-actions">
+            <div class="search-bar">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search dishes...">
+            </div>
+            <button class="btn-add">
+                <i class='bx bx-plus'></i> Add New Item
+            </button>
+        </div>
+    </div>
+
+    {% for category in categories %}
+    <div class="category-container">
+        <h2 class="category-title">{{ category }}</h2>
+        
+        <div class="menu-grid">
+            {% for item in all_items %}
+                {% if item.category == category %}
+                <div class="menu-card animate__animated animate__zoomIn">
+                    <div class="item-image">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                        {% else %}
+                            <div class="no-image"><i class='bx bx-restaurant'></i></div>
+                        {% endif %}
+                        <div class="price-badge">${{ item.price }}</div>
+                    </div>
+
+                    <div class="item-details">
+                        <div class="item-title">
+                            <h3>{{ item.name }}</h3>
+                            <div class="item-actions">
+                                <button class="action-btn edit" title="Edit"><i class='bx bxs-edit'></i></button>
+                                <button class="action-btn delete" title="Delete"><i class='bx bxs-trash'></i></button>
+                            </div>
+                        </div>
+                        <p class="description">{{ item.description|truncatechars:70 }}</p>
+                        
+                        <div class="item-footer">
+                            <div class="status-toggle">
+                                <span class="status-label">Available</span>
+                                <label class="switch">
+                                    <input type="checkbox" {% if item.is_available %}checked{% endif %}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <i class='bx bx-box'></i>
+        <p>No menu items found. Start by adding one!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

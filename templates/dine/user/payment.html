@@ -1,0 +1,30 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<button id="rzp-button">Pay Now</button>
+
+<script>
+var options = {
+    "key": "{{ razorpay_key }}",
+    "amount": "{{ amount }}",
+    "currency": "INR",
+    "name": "DineTime",
+    "description": "Table Booking",
+    "order_id": "{{ order_id }}",
+
+    "handler": function (response){
+        window.location.href = "/payment-success/?payment_id=" + response.razorpay_payment_id
+                                + "&order_id=" + response.razorpay_order_id;
+    },
+
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById('rzp-button').onclick = function(e){
+    rzp.open();
+    e.preventDefault();
+}
+</script>

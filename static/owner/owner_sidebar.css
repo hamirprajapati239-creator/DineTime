@@ -1,96 +1,243 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+:root {
+    --side-bg: #0f172a;           /* Deep Navy */
+    --accent: #f97316;            /* DineTime Orange */
+    --white: #ffffff;
+    --text-muted: #94a3b8;
+    --glass: rgba(255, 255, 255, 0.05);
+    --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
+    background-color: #f1f5f9;
 }
 
-/* Sidebar */
+/* --- Sidebar Base Styles --- */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background: linear-gradient(180deg, #4e73df, #6f42c1);
     position: fixed;
-    top: 0;
     left: 0;
-    padding-top: 20px;
+    top: 0;
+    height: 100%;
+    width: 78px; /* Collapsed width */
+    background: var(--side-bg);
+    padding: 10px 14px;
+    z-index: 100;
+    transition: var(--transition);
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
 }
 
-/* Push content properly */
-.content {
-    margin-left: 250px;   /* SAME as sidebar width */
-    padding: 30px;
-    width: 100%;
-    background: #f4f6f9;
-    min-height: 100vh;
+.sidebar.active {
+    width: 250px; /* Expanded width */
 }
 
-/* Sidebar Header */
-.sidebar-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sidebar-header h2 {
-    margin: 0;
-}
-
-.sidebar-header p {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-/* Menu */
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar-menu li {
-    margin: 8px 0;
-}
-
-.sidebar-menu li a {
-    text-decoration: none;
-    color: white;
-    display: block;
-    padding: 12px 20px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.sidebar-menu li a:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-menu li.active a {
-    background: white;
-    color: #4e73df;
-    font-weight: 600;
-}
-
-.logout a {
-    background: #ff4d4d;
-    margin-top: 20px;
-}
-
-.logout a:hover {
-    background: #e60000;
-}
-
-/* MAIN CONTENT FIX */
-.main-content {
-    margin-left: 250px;   /* same as sidebar width */
-    padding: 40px;
-    min-height: 100vh;
-    background-color: #f4f6f9;
-
+/* --- Logo Section --- */
+.sidebar .logo-details {
+    height: 60px;
     display: flex;
-    justify-content: center;   /* center horizontally */
-    align-items: center;       /* center vertically */
-    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo-details .icon {
+    color: var(--accent);
+    font-size: 32px;
+    min-width: 50px;
     text-align: center;
+}
+
+.sidebar .logo-details .logo_name {
+    color: var(--white);
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.sidebar.active .logo-details .logo_name {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 23px;
+    cursor: pointer;
+    color: var(--white);
+    transition: var(--transition);
+}
+
+.sidebar.active #btn {
+    right: 0;
+}
+
+/* --- Navigation Links --- */
+.sidebar ul {
+    margin-top: 10px;
+}
+
+.sidebar ul li {
+    position: relative;
+    margin: 12px 0;
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.sidebar ul li a:hover, 
+.sidebar ul li a.active {
+    background: var(--glass);
+}
+
+/* Left indicator for active page */
+.sidebar ul li a.active {
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+}
+
+.sidebar ul li i {
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 20px;
+    transition: var(--transition);
+}
+
+.sidebar ul li a:hover i,
+.sidebar ul li a.active i {
+    color: var(--accent);
+}
+
+.sidebar .links_name {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.sidebar.active .links_name {
+    opacity: 1;
+    pointer-events: auto;
+    color: var(--white);
+}
+
+/* --- Profile Section --- */
+.sidebar .profile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition);
+}
+
+.sidebar .profile-details {
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.sidebar.active .profile-details {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar .profile .name {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sidebar .profile .job {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+#log_out {
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#log_out:hover {
+    color: var(--accent);
+}
+
+/* --- HOME SECTION (The "Content Push") --- */
+.home-section {
+    position: relative;
+    background: #f1f5f9;
+    min-height: 100vh;
+    left: 78px; /* Match collapsed sidebar */
+    width: calc(100% - 78px);
+    transition: var(--transition);
+    padding: 20px;
+}
+
+/* This expands the content gap when sidebar is active */
+.sidebar.active ~ .home-section {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+/* --- Logout Button --- */
+
+.profile form{
+    margin-top:6px;
+}
+
+.profile button{
+    background: var(--accent);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.profile button:hover{
+    background:#ea580c;
+}
+
+/* Align icon + text */
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
 }

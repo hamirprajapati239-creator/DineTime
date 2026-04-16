@@ -1,0 +1,184 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurants</title>
+</head>
+<body>
+    <h1>List of Restaurants</h1>
+    <ul>
+        {% for r in restaurants %}
+            <li>{{ r.restaurant_name }}</li>
+        {% empty %}
+            <li>No restaurants found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html> {% endcomment %}
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DineTime Search</title>
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="search-hero">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div class="brand-badge">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Zomato_logo.png/320px-Zomato_logo.png" class="mini-logo">
+      <span>Dineout</span>
+    </div>
+
+    <h1>
+      Dining out restaurants in 
+      <span class="location-highlight">
+        {{ query|default:"Ahmedabad" }}
+      </span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Discover top-rated restaurants & book your table instantly
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FILTER SECTION ================= -->
+
+<section class="filter-container">
+
+  <div class="tab-menu">
+    <button class="tab-btn active">Dineout</button>
+  </div>
+
+  <div class="filter-scroll">
+
+    <button class="filter-pill">
+      <i class="fas fa-sliders-h"></i> Filter
+    </button>
+
+    <button class="filter-pill">
+      Sort By <i class="fas fa-chevron-down"></i>
+    </button>
+
+    <button class="filter-pill">Book a table</button>
+
+    <button class="filter-pill">Within 5km</button>
+
+    <button class="filter-pill">Rating 4.0+</button>
+
+    <button class="filter-pill">Pure Veg</button>
+
+  </div>
+
+</section>
+
+<hr class="divider">
+
+
+<!-- ================= RESTAURANT GRID ================= -->
+
+<section class="restaurant-grid">
+
+{% for r in restaurants %}
+
+<a href="{% url 'restaurant_detail' r.id %}" class="restaurant-card">
+
+  <!-- IMAGE -->
+  <div class="card-image">
+
+    <img src="restaurant_images/"
+         alt="{{ r.restaurant_name }}">
+
+    <div class="image-overlay"></div>
+
+    <div class="rating-box">
+      <i class="fas fa-star"></i> {{ r.rating }}
+    </div>
+
+  </div>
+
+  <!-- CONTENT -->
+  <div class="card-body">
+
+    <h2 class="restaurant-name">
+      {{ r.restaurant_name }}
+    </h2>
+
+    <p class="location-text">
+      <i class="fas fa-map-marker-alt"></i> {{ r.location }}
+    </p>
+
+    <div class="meta-info">
+
+      <p class="contact-text">
+        <i class="fas fa-phone-alt"></i> {{ r.contact_no }}
+      </p>
+
+    </div>
+
+  </div>
+
+</a>
+
+{% empty %}
+
+<div class="no-results-container">
+
+  <div class="empty-icon">
+    <i class="fas fa-search"></i>
+  </div>
+
+  <h3>No restaurants found</h3>
+
+  <p>We couldn't find any results for "<strong>{{ query }}</strong>"</p>
+
+</div>
+
+{% endfor %}
+
+</section>
+
+
+<!-- ================= OPTIONAL ANIMATION SCRIPT ================= -->
+
+<script>
+  // Simple fade-in animation on load
+  const cards = document.querySelectorAll(".restaurant-card");
+
+  cards.forEach((card, index) => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(20px)";
+
+    setTimeout(() => {
+      card.style.transition = "all 0.5s ease";
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, index * 100);
+  });
+</script>
+
+</body>
+</html>

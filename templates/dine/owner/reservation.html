@@ -1,5 +1,114 @@
-<form method = "post" enctype="multipart/form-data">
-     {% csrf_token %}
-     {{form.as.p}}
-     <button type="submit">Booking Table</button>
-</form>
+{% extends 'dine/owner/ownersidebar.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'owner/booking.css' %}">
+
+<div class="booking-wrapper animate__animated animate__fadeIn">
+    <div class="booking-header">
+        <div class="header-info">
+            <h1>Reservations Management</h1>
+            <p>Manage and track all guest table bookings.</p>
+        </div>
+        <div class="booking-stats">
+            <div class="stat-pill"> 
+                <span class="label">Total</span>
+                <span class="value">{{ bookings.count }}</span>
+            </div>
+            <div class="stat-pill success">
+                <span class="label">Active</span>
+                <span class="value">{% if bookings %}{{ bookings.count }}{% else %}0{% endif %}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-bar">
+        <div class="search-box">
+            <i class='bx bx-search'></i>
+            <input type="text" id="bookingSearch" placeholder="Search by guest name...">
+        </div>
+        <div class="filter-actions">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Pending</button>
+            <button class="filter-btn">Confirmed</button>
+            <button class="btn-export"><i class='bx bx-download'></i> Export List</button>
+        </div>
+    </div>
+
+    <div class="table-container animate__animated animate__fadeInUp">
+        <table class="booking-table">
+            <thead>
+                <tr>
+                    <th>Guest Details</th>
+                    <th>Date & Time</th>
+                    <th>Table Info</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="bookingTableBody">
+                {% for booking in bookings %}
+                <tr class="booking-row">
+                    <td>
+                        <div class="guest-info">
+                            <div class="avatar">{{ booking.user.username|slice:":1"|upper }}</div>
+                            <div>
+                                <span class="guest-name">{{ booking.user.username }}</span>
+                                <span class="guest-sub">Party of {{ booking.party_size }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="date-time">
+                            <span class="d-text"><i class='bx bx-calendar'></i> {{ booking.date|date:"M d, Y" }}</span>
+                            <span class="t-text"><i class='bx bx-time'></i> {{ booking.selected_slot.start_time|time:"H:i" }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="table-badge">
+                            <i class='bx bx-chair'></i> {{ booking.table_number|default:"Assigning..." }}
+                        </span>
+                    </td>
+                    <td class="amount-cell">${{ booking.amount }}</td>
+                    <td>
+                        <span class="status-indicator {{ booking.status|lower }}">
+                            {{ booking.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-menu">
+                            <button class="btn-icon check" title="Confirm"><i class='bx bx-check'></i></button>
+                            <button class="btn-icon x" title="Cancel"><i class='bx bx-x'></i></button>
+                            <button class="btn-icon dots"><i class='bx bx-dots-vertical-rounded'></i></button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-row">
+                        <img src="{% static 'images/no-data.svg' %}" alt="No bookings" style="width: 150px; opacity: 0.5;">
+                        <p>No reservations found in the database.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Simple dynamic search filter
+    document.getElementById('bookingSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#bookingTableBody tr.booking-row');
+        
+        rows.forEach(row => {
+            let text = row.querySelector('.guest-name').textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
+{% endblock %}

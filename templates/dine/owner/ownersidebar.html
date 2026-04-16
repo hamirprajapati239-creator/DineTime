@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineTime | Owner</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'owner/owner_sidebar.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxs-bowl-hot icon'></i>
+            <div class="logo_name">DineTime</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="{% url 'owner_dashboard' %}" class="{% if request.resolver_match.url_name == 'owner_dashboard' %}active{% endif %}">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+               
+            </li>
+            <li>
+                <a href="{% url 'reservation' %}">
+                    <i class='bx bx-calendar-check'></i>
+                    <span class="links_name">Bookings</span>
+                </a>
+              
+            </li>
+            <li>
+                <a href="{% url 'manage_menu' %}">
+                    <i class='bx bx-food-menu'></i>
+                    <span class="links_name">Manage Menu</span>
+                </a>
+                
+            </li>
+            <li>
+                <a href="{% url 'revenue' %}">
+                    <i class='bx bx-wallet'></i>
+                    <span class="links_name">Revenue</span>
+                </a>
+                
+            </li>
+            <li>
+                <a href="{% url 'restaurant_settings' %}">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                </a>
+
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <div class="name_job">
+                        <div class="name">Owner Panel</div>
+                        <div class="job">Admin Mode</div>
+                        <form method="POST" action="{% url 'logout' %}">
+                         {% csrf_token %}
+                         <button type="submit" class="logout-btn">
+                         <i class='bx bx-log-out'></i> Logout
+                        </button>
+                        </form>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+   
+    </div>
+
+    <section class="home-section">
+        {% block content %}
+        {% endblock %}
+    </section>
+
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+
+        closeBtn.addEventListener("click", ()=>{
+            sidebar.classList.toggle("active");
+            menuBtnChange();
+        });
+
+        function menuBtnChange() {
+            if(sidebar.classList.contains("active")){
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+            }
+        }
+    </script>
+</body>
+</html>

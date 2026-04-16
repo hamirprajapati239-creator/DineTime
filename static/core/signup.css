@@ -1,0 +1,144 @@
+:root {
+    --primary: #C5A059; /* Luxury Gold */
+    --dark: #121212;
+    --text-soft: #64748b;
+    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body {
+    background: #0f172a; /* Deep Navy Background */
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2070') center/cover;
+}
+
+.luxury-wrapper {
+    width: 100%; height: 100vh;
+    background: rgba(15, 23, 42, 0.85); /* Dark overlay over background image */
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+/* --- The Main Card --- */
+.auth-card {
+    background: white;
+    width: 100%; max-width: 950px;
+    height: 650px;
+    display: flex;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+/* --- Sidebar Section --- */
+.card-visual {
+    flex: 1;
+    background: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1974') center/cover;
+    position: relative;
+    padding: 3rem;
+    display: flex; align-items: flex-end;
+}
+
+.visual-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.visual-content { position: relative; z-index: 2; color: white; }
+.brand-name { font-family: 'Playfair Display', serif; font-size: 3rem; margin-top: 0.5rem; }
+.badge { background: var(--primary); font-size: 0.7rem; padding: 4px 12px; border-radius: 50px; font-weight: 700; letter-spacing: 2px; }
+
+/* --- Form Section --- */
+.card-form-area {
+    flex: 1.3;
+    padding: 3.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    background: #ffffff;
+}
+
+.form-header h2 { font-size: 2.2rem; color: var(--dark); margin-bottom: 0.5rem; }
+.form-header p { color: var(--text-soft); margin-bottom: 2.5rem; font-size: 0.95rem; }
+
+/* --- Role Switcher --- */
+.role-switcher {
+    display: flex; position: relative; background: #f1f5f9;
+    padding: 4px; border-radius: 14px; margin-bottom: 2rem;
+}
+
+.role-switcher input { display: none; }
+
+.role-btn {
+    flex: 1; text-align: center; padding: 10px; font-weight: 600;
+    font-size: 0.9rem; cursor: pointer; z-index: 2; transition: var(--transition);
+}
+
+.role-glider {
+    position: absolute; top: 4px; left: 4px;
+    width: calc(50% - 4px); height: calc(100% - 8px);
+    background: white; border-radius: 11px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: var(--transition); z-index: 1;
+}
+
+#role_owner:checked ~ .role-glider { transform: translateX(100%); }
+#role_owner:checked ~ label[for="role_owner"], #role_user:checked ~ label[for="role_user"] { color: var(--primary); }
+
+/* --- Input Grid --- */
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.input-field.full { grid-column: span 2; }
+.input-field { position: relative; margin-bottom: 10px; }
+
+.input-field input {
+    width: 100%; padding: 1.5rem 0 0.5rem;
+    border: none; border-bottom: 1.5px solid #e2e8f0;
+    font-size: 1rem; outline: none; transition: var(--transition);
+}
+
+.input-field label {
+    position: absolute; left: 0; top: 1.5rem;
+    color: var(--text-soft); transition: var(--transition); pointer-events: none;
+}
+
+.input-field input:focus ~ label,
+.input-field input:not(:placeholder-shown) ~ label {
+    top: 0.2rem; font-size: 0.75rem; font-weight: 700; color: var(--primary);
+}
+
+.input-field .line {
+    position: absolute; bottom: 0; left: 0; height: 1.5px; width: 0;
+    background: var(--primary); transition: var(--transition);
+}
+
+.input-field input:focus ~ .line { width: 100%; }
+
+/* --- Button --- */
+.btn-submit {
+    width: 100%; margin-top: 2.5rem; padding: 1.25rem;
+    background: var(--dark); color: white; border: none;
+    border-radius: 14px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-submit:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(197, 160, 89, 0.3);
+}
+
+/* --- Animations --- */
+.animate-slide-up {
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+    .card-visual { display: none; }
+    .auth-card { max-width: 450px; height: auto; border-radius: 20px; }
+}

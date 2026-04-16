@@ -10,18 +10,42 @@ urlpatterns = [
     path('About/',views.About,name='About'),
     path('Contact/',views.contact,name='Contact'),
     path('reservation/',views.reservation,name='reservation'),
-     path('book-table/', views.book_table, name='book_table'),
     path('my-bookings/', views.my_bookings, name='my_bookings'),
 
 
+ path(
+        "book-table/<int:restaurant_id>/",
+        views.book_table,
+        name="book_table"
+    ),
+
+  
+    path('booking-success/<uuid:booking_id>/', views.booking_success, name='booking_success'),
+    path('manage-menu/', views.manage_menu, name='manage_menu'),
+    path('payment-success/', views.payment_success, name='payment_success'),
+    path('cancel-booking/<uuid:booking_id>/', views.cancel_booking, name='cancel_booking'),
+    # path('confirm_booking/', views.confirm_booking, name='confirm_booking'),
+   
+    path('logout/', views.logout_view, name='logout'),
 
 
+    path('payment-success/', views.payment_success, name='payment_success'),
+
+    path('owner/', views.owner_dashboard, name='owner_dashboard'),
+    path('owner/bookings/', views.reservation, name='reservation'),
+    path('owner/menu/', views.manage_menu, name='manage_menu'),
+    path('owner/revenue/', views.revenue_page, name='revenue'),
+    path('owner/settings/', views.restaurant_settings, name='restaurant_settings'),
 
     # Restaurants
     path('restaurants/', views.restaurant_list, name='restaurant_list'),
     path('restaurant/create/', views.restaurant_create, name='restaurant_create'),
     path('restaurant/update/<int:pk>/', views.restaurant_update, name='restaurant_update'),
     path('restaurant/delete/<int:pk>/', views.restaurant_delete, name='restaurant_delete'),
+# yourapp/urls.py
+
+
+    # path('restaurants/', views.restaurant_list, name='restaurant_list'),
 
     # FoodItem
     path('fooditems/', views.fooditem_list, name='fooditem_list'),
@@ -64,8 +88,22 @@ urlpatterns = [
 
 
     #search_resturant
+
     path('search/', views.search_restaurant, name='search_restaurant'),
+    path('restaurant/<int:id>/', views.restaurant_detail, name='restaurant_detail'),
+    path('profile/',views.user_profile,name='profile'),
+
+
+
+    path('owner/', views.owner_dashboard, name='owner_dashboard'),
+    path('owner/menu/', views.manage_menu, name='manage_menu'),
+    path('owner/orders/', views.active_orders, name='active_orders'),
+    path('owner/reservation/', views.reservation, name='reservations'),
+    path('owner/revenue/', views.revenue, name='revenue'),
+    path('owner/settings/', views.restaurant_settings, name='restaurant_settings'),
 ]
+
+
 
 
 

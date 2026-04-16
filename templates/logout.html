@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout - DineTime</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .logout-box{
+            background:white;
+            padding:40px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn{
+            padding:10px 20px;
+            background:#ff6600;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="logout-box">
+    <h2>You have been logged out</h2>
+    <p>Thank you for using DineTime.</p>
+
+    <a href="{% url 'login' %}" class="btn">Login Again</a>
+</div>
+
+</body>
+</html>

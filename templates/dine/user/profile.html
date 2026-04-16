@@ -1,45 +1,55 @@
-{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Profile | DineTime</title>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
 
-{% block content %}
+<body>
 
 <div class="profile-container">
 
-<h1 class="title">My Profile</h1>
+    <div class="profile-card">
 
-<div class="profile-card">
+        <div class="profile-left">
+            <img src="{% static 'images/user.png' %}" class="profile-img">
 
-<div class="profile-left">
-<img src="{% static 'images/user.png' %}" class="profile-img">
-<p>Profile Picture</p>
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email }}</p>
 
+            <a href="#" class="edit-btn">Edit Profile</a>
+        </div>
 
-<h2>{{ user.username }}</h2>
+        <div class="profile-right">
 
-<p>{{ user.email }}</p>
+            <h3>Personal Information</h3>
+
+            <div class="info">
+                <label>Username</label>
+                <p>{{ user.username }}</p>
+            </div>
+
+            <div class="info">
+                <label>Email</label>
+                <p>{{ user.email }}</p>
+            </div>
+
+            <div class="info">
+                <label>Phone</label>
+                <p>{{ profile.phone }}</p>
+            </div>
+
+            <div class="info">
+                <label>Address</label>
+                <p>{{ profile.address }}</p>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-
-<div class="profile-right">
-
-<h3>Account Information</h3>
-
-<div class="info-box">
-
-<p><strong>Username:</strong> {{ user.username }}</p>
-
-<p><strong>Email:</strong> {{ user.email }}</p>
-
-<p><strong>Joined:</strong> {{ user.date_joined }}</p>
-
-</div>
-
-<button class="edit-btn">Edit Profile</button>
-
-</div>
-
-</div>
-
-</div>
-
-{% endblock %}
+</body>
+</html>

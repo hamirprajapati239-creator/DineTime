@@ -1,0 +1,85 @@
+{% extends 'dine/owner/ownersidebar.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="{% static 'owner/restaurant_settings.css' %}">
+
+<div class="settings-container animate__animated animate__fadeIn">
+    <div class="settings-header">
+        <h1>Restaurant Settings</h1>
+        <p>Manage your restaurant's public profile and contact information.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="settings-form">
+        {% csrf_token %}
+        
+        <div class="settings-grid">
+            <!-- Left Side: Profile Branding -->
+            <div class="card branding-card animate__animated animate__fadeInLeft">
+                <div class="image-upload-wrapper">
+                    <div class="image-preview" id="imagePreview">
+                        {% if restaurant.restaurantImage %}
+                            <img src="{{ restaurant.restaurantImage.url }}" alt="Logo">
+                        {% else %}
+                            <div class="placeholder"><i class='bx bx-store-alt'></i></div>
+                        {% endif %}
+                    </div>
+                    <label for="restaurant_image" class="upload-btn">
+                        <i class='bx bx-camera'></i>
+                        <input type="file" name="restaurant_image" id="restaurant_image" accept="image/*" hidden>
+                    </label>
+                </div>
+                <h3>{{ restaurant.restaurant_name|default:"Your Restaurant" }}</h3>
+                <p class="status-tag"><span class="dot"></span> Online & Accepting Orders</p>
+            </div>
+
+            <!-- Right Side: Form Fields -->
+            <div class="card fields-card animate__animated animate__fadeInRight">
+                <div class="form-group">
+                    <label><i class='bx bx-edit-alt'></i> Restaurant Name</label>
+                    <input type="text" name="restaurant_name" value="{{ restaurant.restaurant_name }}" placeholder="e.g. The Golden Fork" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class='bx bx-phone'></i> Contact Number</label>
+                        <input type="text" name="contact_no" value="{{ restaurant.contact_no }}" placeholder="+1 234 567 890">
+                    </div>
+                    <div class="form-group">
+                        <label><i class='bx bx-map-pin'></i> Location</label>
+                        <input type="text" name="location" value="{{ restaurant.location }}" placeholder="City, Country">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class='bx bx-info-circle'></i> Business Description (Optional)</label>
+                    <textarea rows="4" placeholder="Briefly describe your restaurant...">{{ restaurant.description }}</textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn-secondary">Discard Changes</button>
+                    <button type="submit" class="btn-primary">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Dynamic Image Preview logic
+    const imageInput = document.getElementById('restaurant_image');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

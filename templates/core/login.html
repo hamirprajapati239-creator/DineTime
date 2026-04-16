@@ -1,94 +1,85 @@
-{% comment %} 
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Login</button>
-</form> {% endcomment %}
-{% comment %} {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineTime | Authenticate Access</title>
+    <link rel="stylesheet" href="{% static 'core/login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
-<div class="login-wrapper">
-    <form method="POST" class="login-card">
-        {% csrf_token %}
-        
-        <h2>Welcome Back</h2>
-        <p class="subtitle">Please login to your account</p>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Enter your password" required>
-        </div>
-
-        <button type="submit" class="login-btn">Login</button>
-    </form>
+    <div class="parallax-container">
+    <img src=" https://www.shutterstock.com/image-photo/luxury-rooftop-restaurant-vibrant-dubai-600w-2656576979.jpg" class="parallax-bg" id="bg-image">
+    <div class="luxury-overlay"></div>
 </div>
 
-</body>
-</html> {% endcomment %}
-
-
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Signup</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <div class="container">
-        <h2> Login </h2>
-
-        <form method="POST">
-            {% csrf_token %}
+    <main class="auth-viewport">
+        <div class="auth-card animate-reveal">
             
-            {{ form.non_field_errors }}
+            <div class="card-sidebar">
+                <div class="overlay"></div>
+                <div class="sidebar-content animate-fade-in">
+                    <span class="est-tag">EST. 2026</span>
+                    <h1 class="brand-title">DineTime</h1>
+                    <p>Reserved for the extraordinary.</p>
+                </div>
+            </div>
 
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.email.errors }}
+            <div class="card-form-area">
+                <div class="form-header animate-stagger">
+                    <h2>Welcome Back</h2>
+                    <p>Access your private dining portal.</p>
+                </div>
 
+                <form method="POST" class="luxury-form" novalidate>
+                    {% csrf_token %}
 
-            {{ form.password.label_tag }}
-            {{ form.password }}
-            {{ form.password.errors }}
+                    <div class="input-cell">
+    {{ form.email }}
+    <label for="{{ form.email.id_for_label }}">Email Address</label>
+    <div class="draw-line"></div>
+</div>
 
+<div class="input-cell">
+    {{ form.password }}
+    <label for="{{ form.password.id_for_label }}">Security Key</label>
+    <div class="draw-line"></div>
+</div>
 
-{% comment %} 
-             <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-authorize animate-stagger">
+                        <span>Begin Journey</span>
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </form>
+
+                <footer class="form-footer animate-stagger">
+                    New to the circle? <a href="{% url 'signup' %}">Register</a>
+                </footer>
+            </div>
         </div>
+    </main>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" placeholder="Enter your password" required>
-        </div> {% endcomment %}
+    <script>
+        lucide.createIcons();
+        
+        // Super Smooth Mouse Parallax Logic
+        document.addEventListener('mousemove', (e) => {
+            const layer = document.querySelector('.parallax-layer');
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+            layer.style.transform = `translateX(${x}px) translateY(${y}px) scale(1.1)`;
+        });
 
 
-            <button type="submit">Login</button>
-        </form>
-         <div class="link">
-            First Sigup here
-            <a href="{% url 'signup' %}">Signup</a>
-        </div>
-        {% comment %} <div class="link">
-            ypu account doesnot exist
-            <a href="{% url 'signup' %}">signup</a>
-        </div> {% endcomment %}
-    </div>
+        document.addEventListener('mousemove', (e) => {
+    const img = document.getElementById('bg-image');
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    
+    img.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+});
+    </script>
 </body>
 </html>
-

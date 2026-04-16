@@ -1,0 +1,259 @@
+    /* ================= SEARCH HERO SECTION ================= */
+
+.search-hero{
+position:relative;
+height:280px;
+margin:20px;
+border-radius:20px;
+overflow:hidden;
+background:linear-gradient(135deg,#2c3e50,#4ca1af);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.hero-overlay{
+position:absolute;
+width:200%;
+height:200%;
+background:radial-gradient(circle,rgba(255,255,255,0.1),transparent);
+animation:rotateGlow 8s linear infinite;
+}
+
+@keyframes rotateGlow{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.hero-content{
+text-align:center;
+color:white;
+z-index:1;
+padding:20px;
+}
+
+.brand-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+margin-bottom:12px;
+opacity:0.9;
+}
+
+.mini-logo{
+height:26px;
+}
+
+.hero-content h1{
+font-size:34px;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.location-highlight{
+color:#ffeaa7;
+}
+
+.hero-subtitle{
+opacity:0.85;
+font-size:14px;
+}
+
+
+/* ================= FILTER SECTION ================= */
+
+.filter-container{
+padding:10px 20px;
+}
+
+.tab-menu{
+margin-bottom:10px;
+}
+
+.tab-btn{
+padding:8px 18px;
+border-radius:20px;
+border:none;
+background:#eee;
+cursor:pointer;
+font-weight:500;
+}
+
+.tab-btn.active{
+background:#ff5a5f;
+color:white;
+}
+
+.filter-scroll{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:10px;
+}
+
+.filter-scroll::-webkit-scrollbar{
+display:none;
+}
+
+.filter-pill{
+padding:10px 16px;
+border-radius:25px;
+border:none;
+background:#fff;
+cursor:pointer;
+white-space:nowrap;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+transition:all 0.3s ease;
+}
+
+.filter-pill:hover{
+transform:translateY(-3px);
+background:#f1f2f6;
+}
+
+
+/* ================= DIVIDER ================= */
+
+.divider{
+border:none;
+height:1px;
+background:#eee;
+margin:10px 20px;
+}
+
+
+/* ================= RESTAURANT GRID ================= */
+
+.restaurant-grid{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:20px;
+}
+
+
+/* ================= RESTAURANT CARD ================= */
+
+.restaurant-card{
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+text-decoration:none;
+color:inherit;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:all 0.35s ease;
+position:relative;
+}
+
+.restaurant-card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+
+
+/* ================= CARD IMAGE ================= */
+
+.card-image{
+position:relative;
+height:200px;
+overflow:hidden;
+}
+
+.card-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:transform 0.4s ease;
+}
+
+.restaurant-card:hover img{
+transform:scale(1.1);
+}
+
+.image-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
+}
+
+
+/* ================= RATING BOX ================= */
+
+.rating-box{
+position:absolute;
+top:12px;
+right:12px;
+background:#00b894;
+color:#fff;
+padding:6px 10px;
+border-radius:10px;
+font-size:14px;
+font-weight:600;
+animation:pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+
+
+/* ================= CARD BODY ================= */
+
+.card-body{
+padding:16px;
+}
+
+.restaurant-name{
+font-size:18px;
+font-weight:600;
+margin-bottom:6px;
+}
+
+.location-text,
+.contact-text{
+font-size:14px;
+color:#636e72;
+margin:3px 0;
+}
+
+.meta-info{
+margin-top:8px;
+}
+
+
+/* ================= EMPTY RESULTS ================= */
+
+.no-results-container{
+grid-column:1 / -1;
+text-align:center;
+padding:60px 20px;
+color:#777;
+}
+
+.empty-icon{
+font-size:40px;
+margin-bottom:10px;
+color:#bbb;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+.hero-content h1{
+font-size:24px;
+}
+
+.restaurant-grid{
+grid-template-columns:1fr;
+}
+
+.search-hero{
+height:220px;
+}
+
+}
+
+

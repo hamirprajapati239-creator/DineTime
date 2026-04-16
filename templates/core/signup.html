@@ -1,62 +1,94 @@
-<!-- <form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Signup</button>
-</form> -->
-
-
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Signup</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineTime | Join the Inner Circle</title>
+    <link rel="stylesheet" href="{% static 'core/signup.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="container">
-        <h2>Create Account</h2>
-
-        <form method="POST">
-            {% csrf_token %}
+    <div class="luxury-wrapper">
+        <div class="auth-card animate-slide-up">
             
-            {{ form.non_field_errors }}
+            <div class="card-visual">
+                <div class="visual-overlay"></div>
+                <div class="visual-content">
+                    <span class="badge">EST. 2026</span>
+                    <h1 class="brand-name">DineTime</h1>
+                    <p>Reserved for the extraordinary.</p>
+                </div>
+            </div>
 
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.email.errors }}
+            <div class="card-form-area">
+                <div class="form-header">
+                    <h2>Create Account</h2>
+                    <p>Join the community of fine dining enthusiasts.</p>
+                </div>
 
-            {{ form.firstname.label_tag }}
-            {{ form.firstname }}
-            {{ form.firstname.errors }}
+                <form method="POST" class="luxury-form" novalidate>
+                    {% csrf_token %}
 
-            {{ form.lastname.label_tag }}
-            {{ form.lastname }}
-            {{ form.lastname.errors }}
+                    <div class="role-switcher">
+                        <input type="radio" name="role" id="role_user" value="user" checked>
+                        <label for="role_user" class="role-btn">Personal</label>
+                        
+                        <input type="radio" name="role" id="role_owner" value="owner">
+                        <label for="role_owner" class="role-btn">Restaurant owner</label>
+                        
+                        <div class="role-glider"></div>
+                    </div>
 
-            {{ form.age.label_tag }}
-            {{ form.age }}
-            {{ form.age.errors }}
+                    <div class="input-grid">
+                        <div class="input-field full">
+                            {{ form.email }}
+                            <label>Email Address</label>
+                            <div class="line"></div>
+                        </div>
 
-            {{ form.role.label_tag }}
-            {{ form.role }}
-            {{ form.role.errors }}
+                        <div class="input-field">
+                            {{ form.firstname }}
+                            <label>First Name</label>
+                            <div class="line"></div>
+                        </div>
+                        <div class="input-field">
+                            {{ form.lastname }}
+                            <label>Last Name</label>
+                            <div class="line"></div>
+                        </div>
 
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-            {{ form.password1.errors }}
+                        <div class="input-field full">
+                            {{ form.age }}
+                            <label>Age</label>
+                            <div class="line"></div>
+                        </div>
 
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-            {{ form.password2.errors }}
+                        <div class="input-field">
+                            {{ form.password1 }}
+                            <label>Password</label>
+                            <div class="line"></div>
+                        </div>
+                        <div class="input-field">
+                            {{ form.password2 }}
+                            <label>Confirm</label>
+                            <div class="line"></div>
+                        </div>
+                    </div>
 
-            <button type="submit">Signup</button>
-        </form>
+                    <button type="submit" class="btn-submit">
+                        <span>Begin Journey</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </form>
 
-        <div class="link">
-            Already have an account?
-            <a href="{% url 'login' %}">Login</a>
+                <footer class="form-footer">
+                    Already a member? <a href="{% url 'login' %}">Sign In</a>
+                </footer>
+            </div>
         </div>
     </div>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
-
